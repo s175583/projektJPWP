@@ -46,6 +46,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ciag.cs" />
+    <Compile Include="grafika.cs" />
     <Compile Include="element.cs" />
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>

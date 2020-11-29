@@ -6,15 +6,14 @@ using System.Threading.Tasks;
 
 namespace MorseMaster
 {
-    class element
+    public class element
     {
         public string litera;
         public string[] znak;
-        public int dl;
-        public element(string litera, int dl, string[] znak)
+        public string kolor = "czarny";
+        public element(string litera, string[] znak)
         {
             this.litera = litera;
-            this.dl = dl;
             this.znak = znak;
         }
     }

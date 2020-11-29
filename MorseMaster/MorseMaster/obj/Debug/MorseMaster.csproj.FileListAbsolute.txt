@@ -7,3 +7,4 @@ C:\Users\tomas\Desktop\ProjektJPWP\MorseMaster\MorseMaster\obj\Debug\MorseMaster
 C:\Users\tomas\Desktop\ProjektJPWP\MorseMaster\MorseMaster\obj\Debug\MorseMaster.csproj.CoreCompileInputs.cache
 C:\Users\tomas\Desktop\ProjektJPWP\MorseMaster\MorseMaster\obj\Debug\MorseMaster.exe
 C:\Users\tomas\Desktop\ProjektJPWP\MorseMaster\MorseMaster\obj\Debug\MorseMaster.pdb
+C:\Users\tomas\Desktop\ProjektJPWP\MorseMaster\MorseMaster\obj\Debug\MorseMaster.Form1.resources
