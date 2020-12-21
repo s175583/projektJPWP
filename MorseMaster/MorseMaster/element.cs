@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Drawing;
 
 namespace MorseMaster
 {
@@ -10,7 +11,7 @@ namespace MorseMaster
     {
         public string litera;
         public string[] znak;
-        public string kolor = "czarny";
+        public Color kolor = Color.Black;
         public element(string litera, string[] znak)
         {
             this.litera = litera;

@@ -11,15 +11,17 @@ namespace MorseMaster
     public class ciag
     {
         public element[] alfabet;
-        public bool nauka = false, reset = false, menu = false, nadawanie = true, poprawne = false, swiatlo = false;
+        public element[] losowy;
+        public bool nauka = false, reset = false, menu = false, nadawanie = true, poprawne = false, swiatlo = false, tryb = false, dzwiek = false, wyk = false;
         public String znaki = "", znaki2 = "";
-        float x = 510, y = 130;
+        float x = 510, y = 50;
         public int keyPress = 0;
-        public int mn = 20, k = 0, z = 0;
-        public int[,] zapis = new int[4, 2];
-        public ciag(bool reset, bool menu)
+        public int mn = 20, k = 0, z = 0, fa = 4, dl = 10;
+        public int[,,] zapis = new int[20, 4, 2];
+        public ciag()
         {
             this.alfabet = new element[26];
+            this.losowy = new element[10];
             alfabet[0] = new element("A", new string[2] { ".", "-" });
             alfabet[1] = new element("B", new string[4] { "-", ".", ".", "." });
             alfabet[2] = new element("C", new string[4] { "-", ".", "-", "." });
@@ -46,11 +48,9 @@ namespace MorseMaster
             alfabet[23] = new element("X", new string[4] { "-", ".", ".", "-" });
             alfabet[24] = new element("Y", new string[4] { "-", ".", "-", "-" });
             alfabet[25] = new element("Z", new string[4] { "-", "-", ".", "." });
-            this.reset = reset;
-            this.menu = menu;
         }
-
-        private void uzupZ(int i, int j)
+        /*
+        private void uzupZ2(int i, int j)
         {
             if (alfabet[i].znak[j] == ".")
             {
@@ -65,7 +65,75 @@ namespace MorseMaster
                 k = k + 4;
             }
         }
+        */
+        private void uzupZ(int s, int i, int j)
+        {
+            if (alfabet[i].znak[j] == ".")
+            {
+                zapis[s, j, 0] = k;
+                zapis[s, j, 1] = 1;
+                k = k + 2;
+            }
+            else if (alfabet[i].znak[j] == "-")
+            {
+                zapis[s, j, 0] = k;
+                zapis[s,j, 1] = 3;
+                k = k + 4;
+            }
+        }
+        private void generator(grafika graf)
+        {
+            int liczba;
+            Random rnd = new Random();
+            k += 1;
+            for (int r = 0; r < dl; r++)
+            {
+                k += 2;
+                liczba = rnd.Next(26);
+                losowy[r] = new element(alfabet[liczba].litera, alfabet[liczba].znak);
+                for (int j = 0; j < losowy[r].znak.Length; j++)
+                {
+                    znaki = znaki + losowy[r].znak[j];
+                    uzupZ(r, liczba, j);
+                }
+                k += 1;
+                if (nadawanie)
+                {
+                    graf.RysN1(x, y, losowy[r].litera, Color.Black);
+                }
+                else if (!nadawanie)
+                {
+                    graf.RysN1(x, y, znaki, Color.Black);
+                }
+                znaki = "";
+                x += 100;
+            }
+            k += 6;
+        }
 
+        private void RysT(grafika graf)
+        {
+            graf.Clear();
+            x = 110;
+            znaki = "";
+            for (int rr = 0; rr < dl; rr++)
+            {
+                for (int j = 0; j < losowy[rr].znak.Length; j++)
+                {
+                    znaki = znaki + losowy[rr].znak[j];
+                }
+                if (nadawanie)
+                {
+                    graf.RysN1(x, y, losowy[rr].litera, losowy[rr].kolor);
+                }
+                else if (!nadawanie)
+                {
+                    graf.RysN1(x, y, znaki, losowy[rr].kolor);
+                }
+                znaki = "";
+                x += 100;
+            }
+        }
         private void spraw(String zn, grafika graf, Label label1)
         {
             if (zn == znaki2)
@@ -73,7 +141,6 @@ namespace MorseMaster
                 label1.ForeColor = Color.Green;
                 label1.Text = "Poprawnie!";
                 if (!nadawanie) graf.off();
-                z = 0;
                 poprawne = true;
             }
             else
@@ -84,45 +151,242 @@ namespace MorseMaster
                 keyPress = 0;
             }
         }
-        private void mrug(int l, int i, grafika graf)
+        private void mrug(int s, int l, int i, grafika graf)
         {
-            if (l == zapis[z, 0] && zapis[z, 1] == 1)
+            if (l == zapis[s,z, 0] && zapis[s,z, 1] == 1)
             {
                 graf.krop(mn);
                 z++;
             }
-            else if (l == zapis[z, 0] && zapis[z, 1] == 3)
+            else if (l == zapis[s, z, 0] && zapis[s, z, 1] == 3)
             {
                 graf.kres(mn);
                 z++;
             }
-            if (z == alfabet[i].znak.Length)
+            if (z == i)
             {
                 z = 0;
+                wyk = true;
             }
         }
         public async void Nauka1(grafika graf)
         {
-            if (!nauka)
+            nauka = true;
+            while (nauka)
             {
-                nauka = true;
-                while (nauka)
+                graf.Clear();
+                graf.off();
+                for (int i = 0; i < 26; i++)
                 {
-                    graf.Clear();
-                    graf.off();
-                    for (int i = 0; i < 26; i++)
+                    znaki = alfabet[i].litera + "     ";
+                    k = 3;
+                    for (int j = 0; j < alfabet[i].znak.Length; j++)
                     {
-                        znaki = alfabet[i].litera + "     ";
-                        k = 3;
-                        for (int j = 0; j < alfabet[i].znak.Length; j++)
+                        znaki = znaki + alfabet[i].znak[j];
+                        uzupZ(0, i, j);
+                    }
+                    k = k + fa;
+                    z = 0;
+                    graf.RysN1(x, y, znaki, Color.Black);
+                    for (int l = 0; l < k; l++)
+                    {
+                        await Task.Delay(mn * 12);
+                        if (reset || menu)
                         {
-                            znaki = znaki + alfabet[i].znak[j];
-                            uzupZ(i, j);
+                            if (menu)
+                            {
+                                menu = false;
+                                nauka = false;
+                                return;
+                            }
+                            break;
                         }
-                        k = k + 4;
-                        z = 0;
-                        graf.RysN1(i, x, y, znaki);
-                        for (int l = 0; l < k; l++)
+                        if (l > 2 && swiatlo)
+                        {
+                            mrug(0, l, alfabet[i].znak.Length, graf);
+                        }
+                    }
+                    if (reset)
+                    {
+                        reset = false;
+                        break;
+                    }
+                    graf.Clear();
+                }
+
+            }
+        }
+
+        public async void Nauka2(grafika graf, Label label1, TextBox textBox1)
+        {
+            nauka = true;
+            while (nauka)
+            {
+                graf.Clear();
+                label1.Text = "Wpisz literę odpowiadającą symbolowi";
+                graf.drawBrush.Color = Color.Black;
+                for (int i = 0; i < 26; i++)
+                {
+                    znaki2 = "";
+                    znaki = "";
+                    keyPress = 0;
+                    poprawne = false;
+                    graf.Clear();
+                    k = 3;
+                    z = 0;
+                    for (int j = 0; j < alfabet[i].znak.Length; j++)
+                    {
+                        znaki = znaki + alfabet[i].znak[j];
+                        uzupZ(0, i, j);
+                    }
+                    k = k + 4;
+                    if (nadawanie)
+                    {
+                        graf.RysN1(x, y, alfabet[i].litera, Color.Black);
+                    }
+                    else if (!nadawanie)
+                    {
+                        graf.RysN1(x, y, znaki, Color.Black);
+                    }
+                    while (!poprawne)
+                    {
+                        if (nadawanie)
+                        {
+                            await Task.Delay(12);
+                            if (reset || menu)
+                            {
+                                if (menu)
+                                {
+                                    menu = false;
+                                    nauka = false;
+                                    return;
+                                }
+                                break;
+                            }
+                            textBox1.Text = znaki2;
+                            if (keyPress == alfabet[i].znak.Length)
+                            {
+                                spraw(znaki, graf, label1);
+                            }
+                        }
+                        else if (!nadawanie)
+                        {
+                            for (int l = 0; l < k && !poprawne; l++)
+                            {
+                                await Task.Delay(mn * 12);
+                                if (reset || menu)
+                                {
+                                    if (menu)
+                                    {
+                                        menu = false;
+                                        nauka = false;
+                                        return;
+                                    }
+                                    break;
+                                }
+                                if (l > 2 && swiatlo)
+                                {
+                                    mrug(0, l, alfabet[i].znak.Length, graf);
+                                }
+                                if (keyPress == 1)
+                                {
+                                    spraw(alfabet[i].litera, graf, label1);
+                                    textBox1.Text = "";
+                                    if (poprawne)
+                                    {
+                                        z = 0;
+                                    }
+                                }
+                            }
+                        }
+                        if (reset) break;
+                    }
+                    if (reset)
+                    {
+                        reset = false;
+                        break;
+                    }
+                    graf.drawBrush.Color = Color.Black;
+                    if (i == 25)
+                    {
+                        nauka = false;
+                        graf.Clear();
+                        textBox1.Text = "";
+                        label1.Text = "Dobra robota. Poprawnie zakodowałeś cały ciąg.";
+                    }
+                }
+            }
+        }
+
+        public async void Trening(grafika graf, Label label1, TextBox textBox1)
+        {
+            nauka = true;
+            poprawne = false;
+            while (nauka)
+            {
+            int r = 0;
+            z = 0;
+            x = 110;
+            k = 0;
+            poprawne = false;
+            graf.Clear();
+            generator(graf);
+            label1.Text = "Wpisz literę odpowiadającą symbolowi";
+                if (nadawanie)
+                {
+                    r = 0;
+                    znaki = "";
+                    for (int i = 0; i < losowy[r].znak.Length; i++)
+                    {
+                        znaki = znaki + losowy[r].znak[i];
+                    }
+                    while (!poprawne)
+                    {
+                        await Task.Delay(12);
+                        if (reset || menu)
+                        {
+                            if (menu)
+                            {
+                                menu = false;
+                                nauka = false;
+                                return;
+                            }
+                            reset = false;
+                            break;
+                        }
+                        textBox1.Text = znaki2;
+                        if (keyPress == losowy[r].znak.Length)
+                        {
+                            keyPress = 0;
+                            spraw(znaki, graf, label1);
+                            if (poprawne)
+                            {
+                                losowy[r].kolor = Color.Green;
+                                r = r + 1;
+                                znaki = "";
+                                znaki2 = "";
+                                RysT(graf);
+                                for (int i = 0; i < losowy[r].znak.Length; i++)
+                                {
+                                    znaki = znaki + losowy[r].znak[i];
+                                }
+                                if (r < dl)
+                                {
+                                    poprawne = false;
+                                }
+                            }
+                        }
+                    }
+                }
+                else if (!nadawanie)
+                {
+                    r = 0;
+                    znaki = "";
+                    int s = 0;
+                    wyk = false;
+                    while (!poprawne)
+                    {
+                        for (int l = 0; l < k && !poprawne; l++)
                         {
                             await Task.Delay(mn * 12);
                             if (reset || menu)
@@ -135,9 +399,35 @@ namespace MorseMaster
                                 }
                                 break;
                             }
-                            if (l > 2)
+                            if (l > 2 && swiatlo)
                             {
-                                mrug(l, i, graf);
+                                mrug(s, l, losowy[s].znak.Length, graf);
+                                if (wyk)
+                                {
+                                    wyk = false;
+                                    s++;
+                                    if(s == dl)
+                                    {
+                                        s = 0;
+                                    }
+                                }
+                            }
+                            if (keyPress == 1)
+                            {
+                                keyPress = 0;
+                                textBox1.Text = "";
+                                spraw(losowy[r].litera, graf, label1);
+                                if (poprawne)
+                                {
+                                    losowy[r].kolor = Color.Green;
+                                    r = r + 1;
+                                    znaki2 = "";
+                                    RysT(graf);
+                                    if (r < dl)
+                                    {
+                                        poprawne = false;
+                                    }
+                                }
                             }
                         }
                         if (reset)
@@ -145,111 +435,14 @@ namespace MorseMaster
                             reset = false;
                             break;
                         }
-                        graf.Clear();
                     }
-
                 }
-            }
-        }
-
-        public async void Nauka2(grafika graf, Label label1, TextBox textBox1)
-        {
-            if (!nauka)
-            {
-                nauka = true;
-                while (nauka)
+                if (poprawne)
                 {
-                    graf.Clear();
-                    label1.Text = "Wpisz znaki odpowiadające literze";
-                    graf.drawBrush.Color = Color.Black;
-                    for (int i = 0; i < 26; i++)
-                    {
-                        znaki2 = "";
-                        znaki = "";
-                        keyPress = 0;
-                        poprawne = false;
-                        graf.Clear();
-                        k = 3;
-                        z = 0;
-                        for (int j = 0; j < alfabet[i].znak.Length; j++)
-                        {
-                            znaki = znaki + alfabet[i].znak[j];
-                            uzupZ(i, j);
-                        }
-                        k = k + 4;
-                        if (nadawanie)
-                        {
-                            graf.RysN1(i, x, y, alfabet[i].litera);
-                        }
-                        else if (!nadawanie)
-                        {
-                            graf.RysN1(i, x, y, znaki);
-                        }
-                        while (!poprawne)
-                        {
-                            if (nadawanie)
-                            {
-                                await Task.Delay(12);
-                                if (reset || menu)
-                                {
-                                    if (menu)
-                                    {
-                                        menu = false;
-                                        nauka = false;
-                                        return;
-                                    }
-                                    break;
-                                }
-                                textBox1.Text = znaki2;
-                                if (keyPress == alfabet[i].znak.Length)
-                                {
-                                    spraw(znaki, graf, label1);
-                                }
-                            }
-                            else if (!nadawanie)
-                            {
-                                for (int l = 0; l < k && !poprawne; l++)
-                                {
-                                    await Task.Delay(mn * 12);
-                                    if (reset || menu)
-                                    {
-                                        if (menu)
-                                        {
-                                            menu = false;
-                                            nauka = false;
-                                            return;
-                                        }
-                                        break;
-                                    }
-                                    if (l > 2)
-                                    {
-                                        mrug(l, i, graf);
-                                    }
-                                    textBox1.Text = znaki2;
-                                    if (keyPress == 1)
-                                    {
-                                        spraw(alfabet[i].litera, graf, label1);
-                                    }
-                                }
-                            }
-                            if (reset) break;
-                        }
-                        if (reset)
-                        {
-                            reset = false;
-                            break;
-                        }
-                        graf.drawBrush.Color = Color.Black;
-                        if (i == 25)
-                        {
-                            nauka = false;
-                            graf.Clear();
-                            textBox1.Text = "";
-                        }
-                    }
+                    label1.Text = "Dobra robota. Poprawnie zakodowałeś cały ciąg.";
+                    return;
                 }
             }
         }
-
     }
 }
