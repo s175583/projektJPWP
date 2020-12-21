@@ -49,30 +49,31 @@
     <Compile Include="ciag.cs" />
     <Compile Include="grafika.cs" />
     <Compile Include="element.cs" />
-    <Compile Include="Form1.cs">
+    <Compile Include="Gra.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Form1.Designer.cs">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <Compile Include="Gra.Designer.cs">
+      <DependentUpon>Gra.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <EmbeddedResource Include="Form1.resx">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <EmbeddedResource Include="Gra.resx">
+      <DependentUpon>Gra.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <Compile Include="Properties\Resources.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DependentUpon>Resources.resx</DependentUpon>
-    </Compile>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
     <Compile Include="Properties\Settings.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Settings.settings</DependentUpon>
@@ -81,6 +82,39 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\abstracts background.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Z1MN9AL1.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Bez nazwy31.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\metoda.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Bez nazwy.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\metoda1.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\szyb.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\szyb1.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\zar.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\dzw.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\zegar.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
