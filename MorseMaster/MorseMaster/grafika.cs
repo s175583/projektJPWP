@@ -7,93 +7,112 @@ using System.Threading.Tasks;
 
 namespace MorseMaster
 {
+    //! Klasa odpowiadająca za obsługę grafiki.
     public class grafika
     {
-        public Graphics g, o, h;
-        public Pen pen;
-        public System.Drawing.Font drawFont;
-        public System.Drawing.SolidBrush drawBrush;
-        public Bitmap mybitmap = new Bitmap(global::MorseMaster.Properties.Resources.abstracts_background);
-
-        public grafika(Graphics g, Graphics o, Graphics h)
+        //! Panel graficzny wyświetlający ciągi znaków. 
+        private Graphics g;
+        //! Panel graficzny wyświetlający mrugające światło. 
+        private Graphics o;
+        //! Panel graficzny wyświetlający pierwszy zestaw kontrolek. 
+        private Graphics h;
+        //! Panel graficzny wyświetlający drugi zestaw kontrolek.
+        private Graphics hh;
+        //! Narzędzie do rysowania.
+        private Pen pen;
+        //! Czcionka wyświetlanych znaków na panelu graficznym g.
+        private System.Drawing.Font drawFont;
+        //! Kolor wyświetlanych znaków na panelu graficznym g.
+        internal System.Drawing.SolidBrush drawBrush;
+        //! Grafika tła.
+        private Bitmap mybitmap = new Bitmap(global::MorseMaster.Properties.Resources.abstracts_background);
+        //! Konsruktor przypisujący pola graficzne z klasy Gra.cs
+        public grafika(Graphics g, Graphics o, Graphics h, Graphics hh)
         {
             this.g = g;
             this.o = o;
             this.h = h;
+            this.hh = hh;
             this.drawBrush = new SolidBrush(System.Drawing.Color.Black);
             this.drawFont = new Font("Arial", 48);
             this.pen = new Pen(Color.Brown, 30);
         }
-
-        public void RysN1(float x, float y, string znaki, Color kolor)
+        //! Wyświetlanie znaków na polu graficznym g.
+        internal void RysN1(float x, float y, string znaki, Color kolor, bool tekst)
         {
-            /*
-            if (alfa.alfabet[i].kolor == "zielony")
+            if (tekst)
             {
-                drawBrush.Color = Color.Green;
+                drawBrush.Color = kolor;
+                g.DrawString(znaki, drawFont, drawBrush, x, y);
             }
-            else
-            {
-                drawBrush.Color = Color.Black;
-            }
-            */
-            drawBrush.Color = kolor;
-            g.DrawString(znaki, drawFont, drawBrush, x, y);
         }
-
-        public void kontrolki1(bool sw, bool dz, bool czas)
+        //! Wyświetlanie kontrolek.
+        internal void kontrolki1(bool sw, bool dz, bool czas, int fa, bool tekst)
         {
             if (sw)
             {
                 drawBrush.Color = Color.Green;
             }
             else drawBrush.Color = Color.Red;
-            h.FillEllipse(drawBrush, 23, 0, 28, 28);
+            h.FillEllipse(drawBrush, 18, 0, 28, 28);
             if (dz)
             {
                 drawBrush.Color = Color.Green;
             }
             else drawBrush.Color = Color.Red;
-            h.FillEllipse(drawBrush, 97, 0, 28, 28);
+            h.FillEllipse(drawBrush, 94, 0, 28, 28);
             if (czas)
             {
                 drawBrush.Color = Color.Green;
             }
             else drawBrush.Color = Color.Red;
-            h.FillEllipse(drawBrush, 171, 0, 28, 28);
+            h.FillEllipse(drawBrush, 173, 0, 28, 28);
+            if (fa == 11)
+            {
+                drawBrush.Color = Color.Green;
+            }
+            else drawBrush.Color = Color.Red;
+            hh.FillEllipse(drawBrush, 23, 0, 28, 28);
+            if (tekst)
+            {
+                drawBrush.Color = Color.Green;
+            }
+            else drawBrush.Color = Color.Red;
+            hh.FillEllipse(drawBrush, 208, 0, 28, 28);
         }
-        public void Clear()
+        //! Czyszczenie pola graficznego g.
+        internal void Clear()
         {
             g.DrawImage(mybitmap, 0, 0);
         }
-
-        public void on()
+        //! Włączenie światła na polu graficznym o.
+        internal void on()
         {
             drawBrush.Color = Color.LightYellow;
             o.FillEllipse(drawBrush, 30, 30, 120, 120);
             drawBrush.Color = Color.Yellow;
             o.FillEllipse(drawBrush, 40, 40, 100, 100);
         }
-
-        public void off()
+        //! Wyłączenie światła na polu graficznym o.
+        internal void off()
         {
             drawBrush.Color = Color.LightGray;
             o.FillEllipse(drawBrush, 30, 30, 120, 120);
             drawBrush.Color = Color.Gray;
             o.FillEllipse(drawBrush, 40, 40, 100, 100);
         }
-
-        public async void krop(int mn)
+        //! Metoda zapala światło dla sygnału kropki o zadanej szykbkości transmisji.
+        internal async void krop(int mn)
         {
             on();
-            await Task.Delay(mn * 12);
+            await Task.Delay(mn * 5);
             off();
         }
-
-        public async void kres(int mn)
+        //! Metoda zapala światło dla sygnału kreski o zadanej szykbkości transmisji.
+        internal async void kres(int mn)
         {
             on();
-            await Task.Delay(3 * mn * 12);
+            await Task.Delay(3 * mn * 5);
             off();
         }
     }
