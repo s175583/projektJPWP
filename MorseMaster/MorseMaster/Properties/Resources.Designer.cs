@@ -93,9 +93,28 @@ namespace MorseMaster.Properties {
         /// <summary>
         ///   Wyszukuje zlokalizowany zasób typu System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap szyb {
+        internal static System.Drawing.Bitmap szybk {
             get {
-                object obj = ResourceManager.GetObject("szyb", resourceCulture);
+                object obj = ResourceManager.GetObject("szybk", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Wyszukuje zlokalizowany zasób typu System.IO.UnmanagedMemoryStream podobny do zasobu System.IO.MemoryStream.
+        /// </summary>
+        internal static System.IO.UnmanagedMemoryStream T_morse_code {
+            get {
+                return ResourceManager.GetStream("T_morse_code", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Wyszukuje zlokalizowany zasób typu System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap tekst {
+            get {
+                object obj = ResourceManager.GetObject("tekst", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

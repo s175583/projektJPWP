@@ -47,6 +47,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ciag.cs" />
+    <Compile Include="dzwiek.cs" />
     <Compile Include="grafika.cs" />
     <Compile Include="element.cs" />
     <Compile Include="Gra.cs">
@@ -115,6 +116,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\zegar.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\T_morse_code.wav" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
