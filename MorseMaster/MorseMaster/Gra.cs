@@ -181,8 +181,9 @@ namespace MorseMaster
                 if (alfa.dzwiek) { dzwk.Play(); }
             }
         }
-        //! Obsługa puszczenia klawisza z klawiatury.
-        private void textBox1_KeyUp(object sender, KeyEventArgs e)
+        
+            //! Obsługa puszczenia klawisza z klawiatury.
+            private void textBox1_KeyUp(object sender, KeyEventArgs e)
         {
             if (alfa.tryb && alfa.nadawanie)
             {
@@ -281,13 +282,13 @@ namespace MorseMaster
         {
             MessageBox.Show("Instrukcja obsługi:\n\nPrzyciski Nadawanie oraz Odbieranie - służą do wyboru czy chcemy nadawać czy odbierać." +
                 "\nKolor ciemno-zielony symbolizuje wybraną opcję.\nKolor jasno-zielony sygnalizuje, że aby opcja została wybrana program musi zostać" +
-                " zresetowany przyciskiem Reset\nPrzycisk Menu - powrót do Menu.\nPrzycisk Reset - resetuje aktualnie wybrany tryb do stanu początkowego.\n" +
+                " zresetowany przyciskiem Reset\n\nPrzycisk Menu - powrót do Menu.\nPrzycisk Reset - resetuje aktualnie wybrany tryb do stanu początkowego.\n" +
                 "Przycisk Nauka bierna - uruchamia tryb nauki biernej.\n" +
-                "Przycisk Nauka czynna - uruchamia tryb nauki czynnej.\nIkona Żarówki - włącza/wyłącza mrugające światło.\nIkona głośnika - włącza/wyłącza dźwięk.\n" +
-                "Ikona zegarka - włącza/wyłącza tryb poprawności czasu.\nO stanie włączanie ikon mówią kontrolki pod nimi. Kolor zielony - włączone, kolor czerwony - wyłączone\n" +
+                "Przycisk Nauka czynna - uruchamia tryb nauki czynnej.\n\nIkona Żarówki - włącza/wyłącza mrugające światło.\nIkona głośnika - włącza/wyłącza dźwięk.\n" +
+                "Ikona zegarka - włącza/wyłącza tryb poprawności czasu.\nO stanie włączanie ikon mówią kontrolki pod nimi. Kolor zielony - włączone, kolor czerwony - wyłączone\n\n" +
                 "Przycisk Metoda Farnswortha - włącza metodę Farnswortha (dłuższe odstępy między kodami liter)\n Przycisk Teskt - włącza/wyłącza wyświetlanie tekstu\n" +
-                "O stanie włączenia tych przycisków mówią kontrolki pod nimi. Kolor zielony - włączone, kolor czerwony - wyłączone.\n" +
-                "Pole szybkość transmisji - służy do wyboru szybkości transmisji (w SNM).\nDane wprowadzamy w polu nad ikoną głośnika.\n" +
+                "O stanie włączenia tych przycisków mówią kontrolki pod nimi. Kolor zielony - włączone, kolor czerwony - wyłączone.\n\n" +
+                "Pole szybkość transmisji - służy do wyboru szybkości transmisji (w SNM).\n\nDane wprowadzamy w polu nad ikoną głośnika.\n" +
                 "Tryb bez poprawności czasu: Do wprowadzania służą dwa zestawy przycisków:\n" +
                 "X oraz Z - X jest kropką, Z jest kreską.\n" +
                 "Strzałka w dół oraz Strzałka w prawo - strzałka w dół jest kropką, strzałka w prawo jest kreską\n" +

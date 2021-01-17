@@ -15,7 +15,7 @@ namespace MorseMaster
         //! Konstruktor przypisujący sygnał kodu morse'a.
         public dzwiek()
         {
-            syg = new SoundPlayer(MorseMaster.Properties.Resources.T_morse_code);
+            syg = new SoundPlayer(MorseMaster.Properties.Resources.T_morse_code2);
         }
         //! Metoda włączająca odgrywanie sygnału.
         internal void Play()

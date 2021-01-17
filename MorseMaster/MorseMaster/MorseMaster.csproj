@@ -120,5 +120,8 @@
   <ItemGroup>
     <None Include="Resources\T_morse_code.wav" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\T_morse_code2.wav" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
