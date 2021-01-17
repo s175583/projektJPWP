@@ -200,6 +200,7 @@ namespace MorseMaster
             this.comboBox1.Name = "comboBox1";
             this.comboBox1.Size = new System.Drawing.Size(147, 39);
             this.comboBox1.TabIndex = 14;
+            this.comboBox1.SelectedIndex = 0;
             this.comboBox1.SelectedIndexChanged += new System.EventHandler(this.comboBox1_SelectedIndexChanged);
             // 
             // panel3
@@ -345,7 +346,7 @@ namespace MorseMaster
             this.Controls.Add(this.button2);
             this.Controls.Add(this.button1);
             this.Name = "Gra";
-            this.Text = "Form1";
+            this.Text = "Morse Master";
             this.Shown += new System.EventHandler(this.Gra_Shown);
             this.ResumeLayout(false);
             this.PerformLayout();

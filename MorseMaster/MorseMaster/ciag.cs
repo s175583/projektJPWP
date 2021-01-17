@@ -269,9 +269,11 @@ namespace MorseMaster
             bledy = 0;
             x = 510;
             label2.Text = "Błędy: " + bledy;
+            textBox1.Clear();
             while (nauka)
             {
                 graf.Clear();
+                label1.ForeColor = Color.Green;
                 label1.Text = "Wpisz literę odpowiadającą symbolowi";
                 graf.drawBrush.Color = Color.Black;
                 for (int i = 0; i < 26; i++)
@@ -337,7 +339,7 @@ namespace MorseMaster
                                 {
                                     mrug(0, l, alfabet[i].znak.Length, graf, dzwk);
                                 }
-                                if (keyPress == 1)
+                                if (keyPress > 0)
                                 {
                                     spraw(alfabet[i].litera, graf, label1, label2);
                                     textBox1.Text = "";
@@ -372,6 +374,7 @@ namespace MorseMaster
                                 reset = false;
                                 nauka = true;
                                 bledy = 0;
+                                label2.Text = "Błędy: " + bledy;
                                 break;
                             }
                         }
@@ -384,17 +387,21 @@ namespace MorseMaster
         {
             nauka = true;
             poprawne = false;
-            bledy = 0;
             while (nauka)
             {
             int r = 0;
                 z = 0;
-                x = 50;
+                x = 10;
                 k = 0;
                 poprawne = false;
                 graf.Clear();
                 generator(graf);
+                label1.ForeColor = Color.Green;
                 label1.Text = "Wpisz literę odpowiadającą symbolowi";
+                bledy = 0;
+                label2.Text = "Błędy: " + bledy;
+                label3.Text = "Czas: ";
+                textBox1.Clear();
                 zegar2.Reset();
                 zegar2.Start();
                 if (nadawanie)
@@ -431,13 +438,13 @@ namespace MorseMaster
                                 znaki = "";
                                 znaki2 = "";
                                 RysT(graf);
-                                for (int i = 0; i < losowy[r].znak.Length; i++)
-                                {
-                                    znaki = znaki + losowy[r].znak[i];
-                                }
                                 if (r < dl)
                                 {
                                     poprawne = false;
+                                    for (int i = 0; i < losowy[r].znak.Length; i++)
+                                    {
+                                        znaki = znaki + losowy[r].znak[i];
+                                    }
                                 }
                             }
                         }
@@ -464,7 +471,7 @@ namespace MorseMaster
                                 }
                                 break;
                             }
-                            if (l > 2 && (swiatlo || dzwiek))
+                            if (l > 2)
                             {
                                 mrug(s, l, losowy[s].znak.Length, graf, dzwk);
                                 if (wyk)
@@ -477,7 +484,7 @@ namespace MorseMaster
                                     }
                                 }
                             }
-                            if (keyPress == 1)
+                            if (keyPress > 0)
                             {
                                 keyPress = 0;
                                 textBox1.Text = "";
@@ -498,7 +505,6 @@ namespace MorseMaster
                         if (reset)
                         {
                             reset = false;
-                            bledy = 0;
                             break;
                         }
                     }
@@ -519,7 +525,6 @@ namespace MorseMaster
                         {
                             reset = false;
                             nauka = true;
-                            bledy = 0;
                             break;
                         }
                     }
